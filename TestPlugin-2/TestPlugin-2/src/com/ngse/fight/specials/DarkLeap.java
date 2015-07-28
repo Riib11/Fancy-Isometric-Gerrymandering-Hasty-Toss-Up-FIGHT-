@@ -9,20 +9,24 @@ import org.bukkit.potion.PotionEffectType;
 import com.ngse.fight.classes.PassiveAbility;
 import com.ngse.utilities.Toggle;
 
-public class Invisible extends PassiveAbility {
+public class DarkLeap extends PassiveAbility {
 
-	public Invisible() {
-		super("Invisiblility", 2, "inv");
+	public DarkLeap() {
+		super("Dark Leap", 1, "darlea");
 	}
 
 	@Override
 	public void passiveEffect(Player p) {
-		// nothing
+		p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 100, 100));
+		p.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 100, 100));
+		p.setAllowFlight(true);
 	}
 
 	@Override
 	public void endPassiveEffect(Player p) {
-		p.removePotionEffect(PotionEffectType.INVISIBILITY);
+		p.removePotionEffect(PotionEffectType.BLINDNESS);
+		p.removePotionEffect(PotionEffectType.WEAKNESS);
+		p.setAllowFlight(false);
 	}
 
 	@Override
@@ -33,16 +37,11 @@ public class Invisible extends PassiveAbility {
 	@Override
 	public void effect(Player user) {
 		togglePassiveAbility(user, this);
-		if (Toggle.fromMeta(user, getName()).b) {
-			user.addPotionEffect(new PotionEffect(
-					PotionEffectType.INVISIBILITY, 100, 10, true, true));
-		}
-
 	}
 
 	@Override
 	public ItemStack getItem() {
-		return setupItem(Material.BOWL, this);
+		return setupItem(Material.BONE, this);
 	}
 
 }

@@ -18,10 +18,6 @@ public class Energy {
 		energy = a;
 	}
 
-	public static void updateExp(Player p) {
-		p.setTotalExperience(get(p));
-	}
-
 	public static int get(Player p) {
 		if (p.hasMetadata("energy")) {
 			return ((Energy) (p.getMetadata("energy").get(0).value()))
@@ -36,14 +32,12 @@ public class Energy {
 		p.setMetadata("energy", new FixedMetadataValue(FIGHT.plugin,
 				new Energy(a)));
 		sendEnergyStatus(p, b - a);
-		updateExp(p);
 		return get(p);
 	}
 
 	public static int add(Player p, int a) {
 		set(p, get(p) + a);
 		sendEnergyStatus(p, a);
-		updateExp(p);
 		return get(p);
 	}
 
@@ -75,13 +69,22 @@ public class Energy {
 	 */
 	public static void sendEnergyStatus(Player p, int d) {
 		if (d > 0) {
-			p.sendMessage(ChatColor.BLUE + "[ENERGY] " + ChatColor.GREEN
-					+ Energy.convertToString(Energy.get(p)));
+			// p.sendMessage(ChatColor.BLUE + "[ENERGY] " + ChatColor.GREEN
+			// + Energy.convertToString(Energy.get(p)));
+			updateEnergyDisplay(p, ChatColor.GOLD);
 		} else if (d < 0) {
-			p.sendMessage(ChatColor.RED + "[ENERGY] " + ChatColor.GREEN
-					+ Energy.convertToString(Energy.get(p)));
+			// p.sendMessage(ChatColor.RED + "[ENERGY] " + ChatColor.GREEN
+			// + Energy.convertToString(Energy.get(p)));
+			updateEnergyDisplay(p, ChatColor.RED);
 		} else if (d == 0) {
 			// nothing
 		}
+	}
+
+	public static void updateEnergyDisplay(Player p, ChatColor c) {
+		p.setTotalExperience(get(p));
+		Title title = new Title(" ", convertToString(get(p)), 0, 15, 0);
+		title.setSubtitleColor(c);
+		title.send(p);
 	}
 }
