@@ -17,7 +17,9 @@ public class ItemUseForUntargettedAbilityListener implements Listener {
 		if (p.hasMetadata("fightclass")) {
 			f = (FightClass) FightClass.get(p);
 			if (f != null) {
-				if (f.useAbility(p)) {
+				boolean b = f.useAbility(p);
+				p.sendMessage("useAbility: " + b);
+				if (b) {
 					evt.setCancelled(true);
 				}
 			}
@@ -25,5 +27,4 @@ public class ItemUseForUntargettedAbilityListener implements Listener {
 			// dont do anything
 		}
 	}
-
 }

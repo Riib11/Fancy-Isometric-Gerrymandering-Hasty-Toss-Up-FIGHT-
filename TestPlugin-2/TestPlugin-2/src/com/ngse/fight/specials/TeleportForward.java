@@ -3,6 +3,7 @@ package com.ngse.fight.specials;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -59,7 +60,7 @@ public class TeleportForward extends Ability {
 	}
 
 	private void puff(Player p) {
-		p.getWorld().playEffect(p.getLocation(), Effect.DOOR_TOGGLE, 7);
+		Effects.sound(p.getLocation(), Sound.ENDERMAN_TELEPORT);
 		Effects.play(p.getLocation().add(0, 1, 0), Effect.EXPLOSION_LARGE, 2);
 	}
 

@@ -8,12 +8,14 @@ import org.bukkit.inventory.ItemStack;
 import com.ngse.fight.classes.Ability;
 import com.ngse.fight.classes.FightClass;
 import com.ngse.fight.classes.Mage;
+import com.ngse.fight.specials.Cleavers;
+import com.ngse.fight.specials.PassiveSpeediness;
 import com.ngse.fight.specials.PsychoAx;
 
 public class PsychoKiller extends FightClass implements Mage {
 
 	public PsychoKiller() {
-		super("Psycho Killer", 10);
+		super("Psycho_Killer", 10);
 	}
 
 	@Override
@@ -25,7 +27,7 @@ public class PsychoKiller extends FightClass implements Mage {
 
 	@Override
 	public ArrayList<Ability> getAbilities() {
-		Ability[] a = { new PsychoAx() };
+		Ability[] a = { new PsychoAx(), new Cleavers(), new PassiveSpeediness() };
 		return abilitiesArray(a);
 	}
 

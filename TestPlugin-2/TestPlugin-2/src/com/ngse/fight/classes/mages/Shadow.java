@@ -7,6 +7,7 @@ import org.bukkit.inventory.ItemStack;
 
 import com.ngse.fight.classes.Ability;
 import com.ngse.fight.classes.FightClass;
+import com.ngse.fight.specials.BackstabDagger;
 import com.ngse.fight.specials.Blind;
 import com.ngse.fight.specials.DarkCircle;
 import com.ngse.fight.specials.DarkLeap;
@@ -21,8 +22,8 @@ public class Shadow extends FightClass {
 
 	@Override
 	public ArrayList<Ability> getAbilities() {
-		Ability[] a = { new TeleportBackward(), new DarkCircle(),
-				new Invisible(), new Blind(), new DarkLeap() };
+		Ability[] a = { new TeleportBackward(), new Invisible(), new Blind(),
+				new DarkLeap(), new BackstabDagger() };
 		return abilitiesArray(a);
 	}
 

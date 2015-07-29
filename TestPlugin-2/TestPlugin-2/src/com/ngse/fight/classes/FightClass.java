@@ -82,7 +82,7 @@ public abstract class FightClass {
 	 */
 	public boolean useAbility(Player sender) {
 		// check if they're holding anything
-		if (!(sender.getItemInHand() == null)) {
+		if (sender.getItemInHand() == null) {
 			return false;
 		}
 
@@ -99,6 +99,8 @@ public abstract class FightClass {
 				// check if cost is able to be paid, and pay it
 				if (a.useCost(sender)) {
 					a.effect(sender);
+				} else {
+					// nothing
 				}
 				return true;
 			}
@@ -112,7 +114,7 @@ public abstract class FightClass {
 	 */
 	public boolean useAbility(Player sender, Player target) {
 		// check if they're holding anything
-		if (!(sender.getItemInHand() == null)) {
+		if (sender.getItemInHand() == null) {
 			return false;
 		}
 
@@ -129,6 +131,8 @@ public abstract class FightClass {
 				// check if cost is able to be paid, and pay it
 				if (a.useCost(sender)) {
 					a.effect(sender, target);
+				} else {
+					// nothing
 				}
 				return true;
 			}

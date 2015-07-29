@@ -3,10 +3,14 @@ package com.ngse.fight.specials;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import com.ngse.fight.classes.Ability;
 
 public class Cleavers extends Ability {
+
+	private static final int EFFECTAMP = 3;
 
 	public Cleavers() {
 		super("Cleavers", 7, "cleav");
@@ -14,7 +18,7 @@ public class Cleavers extends Ability {
 
 	@Override
 	public void effect(Player user, Player target) {
-
+		target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 3, EFFECTAMP));
 	}
 
 	@Override

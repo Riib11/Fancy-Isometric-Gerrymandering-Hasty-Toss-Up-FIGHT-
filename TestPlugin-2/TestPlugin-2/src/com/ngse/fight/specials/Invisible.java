@@ -1,12 +1,14 @@
 package com.ngse.fight.specials;
 
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import com.ngse.fight.classes.PassiveAbility;
+import com.ngse.utilities.Effects;
 import com.ngse.utilities.Toggle;
 
 public class Invisible extends PassiveAbility {
@@ -37,6 +39,7 @@ public class Invisible extends PassiveAbility {
 			user.addPotionEffect(new PotionEffect(
 					PotionEffectType.INVISIBILITY, 100, 10, true, true));
 		}
+		Effects.sound(user.getLocation(), Sound.PORTAL_TRAVEL);
 
 	}
 
