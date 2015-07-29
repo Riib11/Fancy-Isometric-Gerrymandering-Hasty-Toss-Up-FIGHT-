@@ -6,4 +6,6 @@ public class Finals {
 
 	public static final float energyCostPerAbilityLevel = 1;
 
+	public static final int TIMERDELAY = 150;
+
 }

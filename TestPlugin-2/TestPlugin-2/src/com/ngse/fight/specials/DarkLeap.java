@@ -1,5 +1,6 @@
 package com.ngse.fight.specials;
 
+import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -7,6 +8,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import com.ngse.fight.classes.PassiveAbility;
+import com.ngse.utilities.Effects;
 import com.ngse.utilities.Toggle;
 
 public class DarkLeap extends PassiveAbility {
@@ -19,6 +21,10 @@ public class DarkLeap extends PassiveAbility {
 	public void passiveEffect(Player p) {
 		p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 100, 100));
 		p.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 100, 100));
+		for (int x = 0; x <= 10; x++) {
+			p.getWorld().playEffect(p.getLocation().add(0, 1, 0),
+					Effect.MOBSPAWNER_FLAMES, 7);
+		}
 		p.setAllowFlight(true);
 	}
 
@@ -37,6 +43,7 @@ public class DarkLeap extends PassiveAbility {
 	@Override
 	public void effect(Player user) {
 		togglePassiveAbility(user, this);
+		Effects.play(user.getLocation(), Effect.LARGE_SMOKE, 10);
 	}
 
 	@Override

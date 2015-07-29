@@ -8,6 +8,7 @@ import org.bukkit.inventory.ItemStack;
 
 import com.ngse.fight.classes.Ability;
 import com.ngse.utilities.Direction;
+import com.ngse.utilities.Effects;
 
 public class TeleportForward extends Ability {
 
@@ -21,9 +22,14 @@ public class TeleportForward extends Ability {
 	@Override
 	public void effect(Player user, Player target) {
 		// teleport right behind the target
+		puff(user);
 		Location tloc = target.getLocation();
 		tloc = tloc.add(Direction.getOppDir(target));
-		user.teleport(tloc);
+		if (tloc.getBlock().isEmpty()) {
+			user.teleport(tloc);
+		}
+		puff(user);
+
 	}
 
 	@Override
@@ -44,13 +50,17 @@ public class TeleportForward extends Ability {
 		}
 		if (safe) {
 			Hover.destroyHoveringBlock(user, true);
-			user.getWorld().playEffect(user.getLocation(), Effect.DOOR_TOGGLE,
-					10);
+			puff(user);
 			user.teleport(loc);
-			user.getWorld().playEffect(user.getLocation(), Effect.DOOR_TOGGLE,
-					10);
+
+			puff(user);
 		}
 
+	}
+
+	private void puff(Player p) {
+		p.getWorld().playEffect(p.getLocation(), Effect.DOOR_TOGGLE, 7);
+		Effects.play(p.getLocation().add(0, 1, 0), Effect.EXPLOSION_LARGE, 2);
 	}
 
 	@Override

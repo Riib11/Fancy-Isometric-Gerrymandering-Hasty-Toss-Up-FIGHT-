@@ -12,7 +12,7 @@ import com.ngse.utilities.Toggle;
 public class Invisible extends PassiveAbility {
 
 	public Invisible() {
-		super("Invisiblility", 2, "inv");
+		super("Invisiblility", 1, "inv");
 	}
 
 	@Override

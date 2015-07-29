@@ -21,6 +21,8 @@ public class ItemUseForTargettedAbilityListener implements Listener {
 					f.useAbility(p, (Player) evt.getRightClicked());
 				}
 			}
+		} else {
+			// dont do anything
 		}
 	}
 }

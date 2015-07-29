@@ -16,7 +16,7 @@ import com.ngse.utilities.Toggle;
 public class Hover extends PassiveAbility {
 
 	public Hover() {
-		super("Hover", 2, "hov");
+		super("Hover", 1, "hov");
 	}
 
 	@Override

@@ -16,7 +16,7 @@ import com.ngse.fight.specials.TeleportBackward;
 public class Shadow extends FightClass {
 
 	public Shadow() {
-		super("Shadow", 20);
+		super("Shadow", 40);
 	}
 
 	@Override
