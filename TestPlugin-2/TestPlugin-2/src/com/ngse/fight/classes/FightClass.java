@@ -1,14 +1,17 @@
 package com.ngse.fight.classes;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
+import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import com.ngse.fight.FIGHT;
+import com.google.common.collect.Iterables;
 import com.ngse.fight.classes.fighters.PsychoKiller;
 import com.ngse.fight.classes.mages.Alchemist;
 import com.ngse.fight.classes.mages.Shadow;
@@ -66,7 +69,6 @@ public abstract class FightClass {
 
 	public static void initiateClass(Player sender, FightClass fightclass) {
 		// give items
-		FIGHT.log("FC: " + fightclass.getName());
 		for (ItemStack is : fightclass.getItems()) {
 			sender.getInventory().addItem(is);
 		}
@@ -98,7 +100,51 @@ public abstract class FightClass {
 							.equalsIgnoreCase(a.getMID())) {
 				// check if cost is able to be paid, and pay it
 				if (a.useCost(sender)) {
-					a.effect(sender);
+
+					// check to see if there is a target
+					Player target = null;
+					boolean s = true;
+					Location l = sender.getLocation();
+
+					/*
+					 * loop through nearby entites to positions x blocks in the
+					 * direction the player is looking, starting at 0 and ending
+					 * at a.getRange()
+					 */
+					sender.sendMessage("Initiating cycling with range: "
+							+ a.getRange());
+					for (int x = 2; x < a.getRange() && (s); x++) {
+						Location lt = l;
+						sender.sendMessage(String.valueOf(lt.getBlockX())
+								+ " : " + String.valueOf(lt.getBlockY())
+								+ " : " + String.valueOf(lt.getBlockZ()));
+						Collection<Entity> et = lt.getWorld()
+								.getNearbyEntities(
+										lt.add(lt.getDirection().multiply(x)),
+										2, 2, 2);
+
+						if (!et.isEmpty()) {
+							for (int j = 0; j < et.size(); j++) {
+								if (Iterables.get(et, j) instanceof Player) {
+
+									if (!(((Player) Iterables.get(et, j))
+											.equals(sender))) {
+										target = (Player) Iterables.get(et, 0);
+										sender.sendMessage("target didnt equal player");
+										s = false;
+									}
+								}
+							}
+						}
+					}
+
+					// see if target got set to anything
+					if (target != null) {
+						sender.sendMessage("Got target: " + target.getName());
+						a.effect(sender, target);
+					} else {
+						a.effect(sender);
+					}
 				} else {
 					// nothing
 				}
@@ -109,7 +155,7 @@ public abstract class FightClass {
 	}
 
 	/*
-	 * Return: True if they have an ability matching the held item. False if
+	 * @Return: True if they have an ability matching the held item. False if
 	 * they do not have any abilities matching held item
 	 */
 	public boolean useAbility(Player sender, Player target) {

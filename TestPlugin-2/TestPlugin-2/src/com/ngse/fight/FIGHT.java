@@ -1,6 +1,5 @@
 package com.ngse.fight;
 
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.Timer;
@@ -53,6 +52,7 @@ public class FIGHT extends JavaPlugin {
 
 	public void initListeners() {
 		setupListener(new ItemUseForUntargettedAbilityListener());
+		setupListener(new ItemUseForTargettedAbilityListener());
 		setupListener(new PlayerMovingListener());
 	}
 

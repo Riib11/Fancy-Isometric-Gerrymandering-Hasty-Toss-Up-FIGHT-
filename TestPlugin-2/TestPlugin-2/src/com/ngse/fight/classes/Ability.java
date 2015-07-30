@@ -17,15 +17,21 @@ public abstract class Ability {
 	public int level;
 	public ItemStack item;
 	public String name;
+	public int range;
 	public String MID;
 
 	// all abilities are attched to items
 
-	public Ability(String name, int level, String MID) {
+	public Ability(String name, int level, int range, String MID) {
 		this.name = name;
 		this.level = level;
 		this.item = getItem();
+		this.range = range;
 		this.MID = MID;
+	}
+
+	public Ability(String name, int level, String MID) {
+		this(name, level, Finals.defaultRange, MID);
 	}
 
 	public abstract void effect(Player user, Player target);
@@ -42,6 +48,10 @@ public abstract class Ability {
 
 	public int getCost() {
 		return (int) (level * Finals.energyCostPerAbilityLevel);
+	}
+
+	public int getRange() {
+		return range;
 	}
 
 	/*

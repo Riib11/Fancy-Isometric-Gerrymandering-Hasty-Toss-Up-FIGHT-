@@ -8,4 +8,6 @@ public class Finals {
 
 	public static final int TIMERDELAY = 150;
 
+	public static final int defaultRange = 5;
+
 }
