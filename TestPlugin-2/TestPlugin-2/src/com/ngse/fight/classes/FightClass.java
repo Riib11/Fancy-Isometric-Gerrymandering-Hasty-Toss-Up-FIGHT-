@@ -146,9 +146,13 @@ public abstract class FightClass {
 					if (target != null) {
 						a.effect(sender, target);
 					} else {
-						if (a instanceof BlockTargettingAbility && b != null
-								&& !b.getType().equals(Material.AIR)) {
-							((BlockTargettingAbility) a).effect(sender, b);
+						if (a instanceof BlockTargettingAbility) {
+							if (b != null && !b.getType().equals(Material.AIR)) {
+								((BlockTargettingAbility) a).effect(sender, b);
+							} else {
+								// nothing, needs a block for target it
+								// BlockTargettingAbility
+							}
 						}
 						a.effect(sender);
 					}
