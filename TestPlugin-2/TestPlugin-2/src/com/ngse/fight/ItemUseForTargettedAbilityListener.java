@@ -18,8 +18,6 @@ public class ItemUseForTargettedAbilityListener implements Listener {
 			f = (FightClass) FightClass.get(p);
 			if (f != null) {
 				if (evt.getRightClicked() instanceof Player) {
-					p.sendMessage("Got clicked player: "
-							+ evt.getRightClicked().getName());
 					f.useAbility(p, (Player) evt.getRightClicked());
 				}
 			}

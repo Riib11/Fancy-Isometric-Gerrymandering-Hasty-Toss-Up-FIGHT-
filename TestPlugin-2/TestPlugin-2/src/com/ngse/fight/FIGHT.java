@@ -54,6 +54,7 @@ public class FIGHT extends JavaPlugin {
 		setupListener(new ItemUseForUntargettedAbilityListener());
 		setupListener(new ItemUseForTargettedAbilityListener());
 		setupListener(new PlayerMovingListener());
+		setupListener(new PlayerAttackPlayerListener());
 	}
 
 	public static void initClasses() {

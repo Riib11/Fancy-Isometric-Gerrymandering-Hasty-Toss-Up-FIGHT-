@@ -16,10 +16,14 @@ public class PsychoAx extends Ability {
 		super("Psychotic Ax", 2, "psyax");
 	}
 
+	private static final int EFFECTAMP = 3;
+	private static final int EFFECTDUR = 100;
+
 	@Override
 	public void effect(Player user, Player target) {
 		Effects.play(user.getLocation(), Effect.GHAST_SHRIEK, 1);
-		target.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 5, 2));
+		target.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS,
+				EFFECTDUR, EFFECTAMP));
 	}
 
 	@Override

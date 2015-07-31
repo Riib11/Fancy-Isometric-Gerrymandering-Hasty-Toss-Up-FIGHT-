@@ -21,6 +21,10 @@ public class DarkLeap extends PassiveAbility {
 	public void passiveEffect(Player p) {
 		p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 100, 100));
 		p.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 100, 100));
+		p.getWorld()
+				.spigot()
+				.playEffect(p.getLocation().add(0, 1, 0),
+						Effect.PARTICLE_SMOKE, 1, 1, 0, 0, 0, .1f, 20, 4);
 		for (int x = 0; x <= 10; x++) {
 			p.getWorld().playEffect(p.getLocation().add(0, 1, 0),
 					Effect.MOBSPAWNER_FLAMES, 7);

@@ -3,17 +3,23 @@ package com.ngse.fight.classes;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import com.google.common.collect.Iterables;
+import com.ngse.fight.classes.fighters.Lumberjack;
+import com.ngse.fight.classes.fighters.Ninja;
 import com.ngse.fight.classes.fighters.PsychoKiller;
 import com.ngse.fight.classes.mages.Alchemist;
+import com.ngse.fight.classes.mages.Pyromancer;
 import com.ngse.fight.classes.mages.Shadow;
 import com.ngse.fight.classes.mages.Teleporter;
 
@@ -27,6 +33,9 @@ public abstract class FightClass {
 		Shadow sha = new Shadow();
 		Teleporter tel = new Teleporter();
 		PsychoKiller psy = new PsychoKiller();
+		Pyromancer pyr = new Pyromancer();
+		Ninja nin = new Ninja();
+		Lumberjack lum = new Lumberjack();
 	}
 
 	public abstract ArrayList<ItemStack> getItems();
@@ -82,7 +91,7 @@ public abstract class FightClass {
 	 * Return: True if they have an ability matching the held item. False if
 	 * they do not have any abilities matching held item
 	 */
-	public boolean useAbility(Player sender) {
+	public boolean useAbility(Player sender, Block b) {
 		// check if they're holding anything
 		if (sender.getItemInHand() == null) {
 			return false;
@@ -111,13 +120,9 @@ public abstract class FightClass {
 					 * direction the player is looking, starting at 0 and ending
 					 * at a.getRange()
 					 */
-					sender.sendMessage("Initiating cycling with range: "
-							+ a.getRange());
 					for (int x = 2; x < a.getRange() && (s); x++) {
 						Location lt = l;
-						sender.sendMessage(String.valueOf(lt.getBlockX())
-								+ " : " + String.valueOf(lt.getBlockY())
-								+ " : " + String.valueOf(lt.getBlockZ()));
+
 						Collection<Entity> et = lt.getWorld()
 								.getNearbyEntities(
 										lt.add(lt.getDirection().multiply(x)),
@@ -130,7 +135,6 @@ public abstract class FightClass {
 									if (!(((Player) Iterables.get(et, j))
 											.equals(sender))) {
 										target = (Player) Iterables.get(et, 0);
-										sender.sendMessage("target didnt equal player");
 										s = false;
 									}
 								}
@@ -140,9 +144,12 @@ public abstract class FightClass {
 
 					// see if target got set to anything
 					if (target != null) {
-						sender.sendMessage("Got target: " + target.getName());
 						a.effect(sender, target);
 					} else {
+						if (a instanceof BlockTargettingAbility && b != null
+								&& !b.getType().equals(Material.AIR)) {
+							((BlockTargettingAbility) a).effect(sender, b);
+						}
 						a.effect(sender);
 					}
 				} else {
@@ -176,7 +183,9 @@ public abstract class FightClass {
 							.equalsIgnoreCase(a.getMID())) {
 				// check if cost is able to be paid, and pay it
 				if (a.useCost(sender)) {
-					a.effect(sender, target);
+					if (!sender.equals(target)) {
+						a.effect(sender, target);
+					}
 				} else {
 					// nothing
 				}
@@ -203,6 +212,19 @@ public abstract class FightClass {
 		im.setLore(l);
 		it.setItemMeta(im);
 		return it;
+	}
+
+	public static ItemStack setupSpecialItem(Material m, String name,
+			String lore, Enchantment e, int l) {
+		ItemStack i = new ItemStack(m);
+		i.addUnsafeEnchantment(e, l);
+		ItemMeta im = i.getItemMeta();
+		im.setDisplayName(name);
+		List<String> lorelist = new ArrayList<String>();
+		lorelist.add(lore);
+		im.setLore(lorelist);
+		i.setItemMeta(im);
+		return i;
 	}
 
 	public static ArrayList<Ability> abilitiesArray(Ability[] a) {

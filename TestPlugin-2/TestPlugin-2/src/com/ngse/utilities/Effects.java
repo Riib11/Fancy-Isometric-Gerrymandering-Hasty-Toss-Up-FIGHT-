@@ -24,6 +24,6 @@ public class Effects {
 	}
 
 	public static void sound(Location l, Sound s) {
-		l.getWorld().playSound(l, s, 0.5f, 1);
+		l.getWorld().playSound(l, s, 0.5f, 1);		
 	}
 }

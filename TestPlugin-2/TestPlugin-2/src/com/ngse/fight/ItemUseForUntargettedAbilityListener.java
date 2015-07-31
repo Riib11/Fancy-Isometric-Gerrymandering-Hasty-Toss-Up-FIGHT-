@@ -17,7 +17,7 @@ public class ItemUseForUntargettedAbilityListener implements Listener {
 		if (p.hasMetadata("fightclass")) {
 			f = (FightClass) FightClass.get(p);
 			if (f != null) {
-				boolean b = f.useAbility(p);
+				boolean b = f.useAbility(p, evt.getClickedBlock());
 				if (b) {
 					evt.setCancelled(true);
 				}

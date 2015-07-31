@@ -37,7 +37,7 @@ public class Invisible extends PassiveAbility {
 		togglePassiveAbility(user, this);
 		if (Toggle.fromMeta(user, getName()).b) {
 			user.addPotionEffect(new PotionEffect(
-					PotionEffectType.INVISIBILITY, 100, 10, true, true));
+					PotionEffectType.INVISIBILITY, 10000000, 100, true, true));
 		}
 		user.playSound(user.getLocation(), Sound.PORTAL_TRAVEL, .3f, 1);
 

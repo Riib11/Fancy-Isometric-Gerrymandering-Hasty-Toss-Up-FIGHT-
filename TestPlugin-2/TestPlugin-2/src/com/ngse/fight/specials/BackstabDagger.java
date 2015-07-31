@@ -4,7 +4,6 @@ import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -25,7 +24,7 @@ public class BackstabDagger extends Ability {
 		double angle = Math.abs(Math.acos(pl.getDirection().dot(
 				tl.getDirection())));
 		if (angle >= 100) {
-			target.setHealth((int) (target.getMaxHealth() / 5));
+			target.setHealth(2);
 			specialEffects(target);
 		} else {
 			// nothing
